@@ -1,0 +1,11 @@
+/data
+/.vscode
+/.release
+/public/bundle.js
+/lib
+/**/*copy.ts
+/_tmp
+*.map.js
+*.js.map
+/stats.json
+/coverage

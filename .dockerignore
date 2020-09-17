@@ -1,0 +1,7 @@
+/src
+/data
+/.vscode
+/_tmp
+/node_modules
+/public/bundlle.js.map
+/coverage

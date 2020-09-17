@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - README.md
+
+jobs:
+  run:
+    name: Deploy
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v1
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Setup node modules cache
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-node${{ matrix.node-version }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node${{ matrix.node-version }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-node${{ matrix.node-version }}-build-
+            ${{ runner.OS }}-node${{ matrix.node-version }}-
+      - name: Install node modules
+        run: npm install
+      - name: Run tests
+        run: npm test
+      - name: Release build
+        run: npm run release
+      - uses: akhileshns/heroku-deploy@v3.4.6
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          usedocker: true
+        env:
+          HD_THEMOVIEDB_API_KEY: ${{ secrets.THEMOVIEDB_API_KEY }}

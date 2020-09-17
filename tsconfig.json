@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./lib/react",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowJs": false,
+    "declaration": true,
+    "lib": ["es6", "dom"],
+    "jsx": "react",
+    "noImplicitReturns": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "incremental": true,
+    "stripInternal": true
+  },
+  "include": ["src", "test"]
+}
